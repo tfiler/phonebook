@@ -1,9 +1,12 @@
 const { response } = require('express')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
 
 app.use(express.json())
+app.use(cors())
+app.use(express.static('build'))
 
 morgan.token('content', (request, response) => {
   return JSON.stringify(request.body)
@@ -32,10 +35,6 @@ let persons = [
     "number": "39-23-6423122"
   }
 ]
-
-app.get('/', (request, response) => {
-  response.send('work in progress')
-})
 
 app.get('/info', (request, response) => {
   response.send(`
